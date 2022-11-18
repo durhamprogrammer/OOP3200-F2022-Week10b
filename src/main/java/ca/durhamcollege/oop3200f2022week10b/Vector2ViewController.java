@@ -46,6 +46,7 @@ public class Vector2ViewController implements Initializable
             Vector2ListView.getItems().add(newVector2);
             XInputTextField.clear();
             YInputTextField.clear();
+            TotalDistanceTextView.clear();
         }
     }
 
@@ -56,6 +57,7 @@ public class Vector2ViewController implements Initializable
         var distance = Vector2.Distance(selectedItemsList.get(0), selectedItemsList.get(1));
         TotalDistanceTextView.setText(Float.toString(distance));
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -73,9 +75,20 @@ public class Vector2ViewController implements Initializable
             {
                 hideDistanceUI();
             }
+        });
 
+        XInputTextField.textProperty().addListener((obs, oldValue, newValue) ->{
+            if (!newValue.matches("\\d*"))
+            {
+                XInputTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
 
-
+        YInputTextField.textProperty().addListener((obs, oldValue, newValue) ->{
+            if (!newValue.matches("\\d*"))
+            {
+                YInputTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
         });
 
 
@@ -93,5 +106,6 @@ public class Vector2ViewController implements Initializable
         CalculateDistanceButton.setVisible(false);
         TotalDistanceLabel.setVisible(false);
         TotalDistanceTextView.setVisible(false);
+        TotalDistanceTextView.clear();
     }
 }
