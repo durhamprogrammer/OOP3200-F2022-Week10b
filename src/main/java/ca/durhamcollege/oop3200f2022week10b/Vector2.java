@@ -170,6 +170,13 @@ public class Vector2
     return new Vector2( 0.0f, 1.0f );
     }
 
+    public static float Distance(Vector2 start, Vector2 end)
+    {
+        float diffXs = end.getX() - start.getX();
+        float diffYs = end.getY() - start.getY();
+        return (float) Math.sqrt(diffXs * diffXs + diffYs * diffYs);
+    }
+
     // overridden methods
     @Override
     public String toString()

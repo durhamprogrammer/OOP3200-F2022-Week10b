@@ -3,12 +3,11 @@ package ca.durhamcollege.oop3200f2022week10b;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 public class Vector2ViewController implements Initializable
 {
@@ -17,6 +16,15 @@ public class Vector2ViewController implements Initializable
 
     @FXML
     private Button AddVectorButton;
+
+    @FXML
+    private Button CalculateDistanceButton;
+
+    @FXML
+    private Label TotalDistanceLabel;
+
+    @FXML
+    private TextField TotalDistanceTextView;
 
     @FXML
     private ListView<Vector2> Vector2ListView;
@@ -41,9 +49,49 @@ public class Vector2ViewController implements Initializable
         }
     }
 
+    @FXML
+    void CalculateDistanceButton_Clicked(ActionEvent event)
+    {
+        var selectedItemsList = Vector2ListView.getSelectionModel().getSelectedItems();
+        var distance = Vector2.Distance(selectedItemsList.get(0), selectedItemsList.get(1));
+        TotalDistanceTextView.setText(Float.toString(distance));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        Vector2ListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+        Vector2ListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
+        {
+
+            if(Vector2ListView.getSelectionModel().getSelectedItems().size() == 2)
+            {
+                showDistanceUI();
+            }
+            else
+            {
+                hideDistanceUI();
+            }
+
+
+
+        });
+
+
+    }
+
+    private void showDistanceUI()
+    {
+        CalculateDistanceButton.setVisible(true);
+        TotalDistanceLabel.setVisible(true);
+        TotalDistanceTextView.setVisible(true);
+    }
+
+    private void hideDistanceUI()
+    {
+        CalculateDistanceButton.setVisible(false);
+        TotalDistanceLabel.setVisible(false);
+        TotalDistanceTextView.setVisible(false);
     }
 }
