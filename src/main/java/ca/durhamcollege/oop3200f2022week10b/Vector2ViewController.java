@@ -13,11 +13,13 @@ import java.util.ResourceBundle;
 public class Vector2ViewController implements Initializable
 {
 
+
+
     @FXML
     private Button AddVectorButton;
 
     @FXML
-    private ListView<?> Vector2ListView;
+    private ListView<Vector2> Vector2ListView;
 
     @FXML
     private TextField XInputTextField;
@@ -28,7 +30,15 @@ public class Vector2ViewController implements Initializable
     @FXML
     void AddVectorButton_Clicked(ActionEvent event)
     {
-
+        if(!XInputTextField.getText().isEmpty() && !YInputTextField.getText().isEmpty())
+        {
+            float x = Float.parseFloat(XInputTextField.getText());
+            float y = Float.parseFloat(YInputTextField.getText());
+            Vector2 newVector2 = new Vector2(x, y);
+            Vector2ListView.getItems().add(newVector2);
+            XInputTextField.clear();
+            YInputTextField.clear();
+        }
     }
 
     @Override
